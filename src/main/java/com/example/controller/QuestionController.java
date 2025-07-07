@@ -2,6 +2,10 @@ package com.example.controller;
 
 import java.util.List;
 
+import com.example.dto.QuestionDto;
+import org.springframework.cache.annotation.CachePut;
+import org.springframework.cache.annotation.Cacheable;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -16,31 +20,31 @@ import com.example.service.QuestionService;
 @RequestMapping("/api/v1/question")
 public class QuestionController {
 
-	private QuestionService questionService;
+	private final QuestionService questionService;
 
 	public QuestionController(QuestionService questionService) {
 		this.questionService = questionService;
 	}
-	
-	@PostMapping("/addQuestion")
-	public Question addQuestion(@RequestBody Question question) {
-		return questionService.addQuestion(question);
+
+	@PostMapping
+	public ResponseEntity<QuestionDto> addQuestion(@RequestBody QuestionDto dto) {
+		return ResponseEntity.ok(questionService.addQuestion(dto));
 	}
-	
-	@GetMapping("/allQuestion")
-	public List<Question> getAllQuestion(){
-		return questionService.getALLQuestion();
+
+
+	@GetMapping
+	public ResponseEntity<List<QuestionDto>> getAllQuestions() {
+		return ResponseEntity.ok(questionService.getAllQuestions());
 	}
 
 	@GetMapping("/{id}")
-	public Question getQuestionById(@PathVariable("id") Long questionId) {
-		return questionService.getOneQuestion(questionId);
+	public ResponseEntity<QuestionDto> getQuestionById(@PathVariable Long id) {
+		return ResponseEntity.ok(questionService.getQuestionById(id));
 	}
-	
-	@GetMapping("/quiz/{id}")
-	public List<Question> getQuestionByQuizId(@PathVariable("id") Long quizId) {
-		return questionService.getQuestionByQuizId(quizId);
-		
+
+	@GetMapping("/quiz/{quizId}")
+	public ResponseEntity<List<QuestionDto>> getQuestionsByQuizId(@PathVariable Long quizId) {
+		return ResponseEntity.ok(questionService.getQuestionsByQuizId(quizId));
 	}
 }
 

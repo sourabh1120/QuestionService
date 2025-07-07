@@ -2,12 +2,15 @@ package com.example.service;
 
 import java.util.List;
 
-import com.example.entity.Question;
+import com.example.dto.QuestionDto;
 
 public interface QuestionService {
-	
-	public Question addQuestion(Question question); 
-	public List<Question> getALLQuestion();
-	public Question getOneQuestion(Long id);
-	public List<Question> getQuestionByQuizId(Long quizId);
+
+	QuestionDto addQuestion(QuestionDto questionDto);
+
+	List<QuestionDto> getAllQuestions();
+
+	QuestionDto getQuestionById(Long id);
+
+	List<QuestionDto> getQuestionsByQuizId(Long quizId);
 }

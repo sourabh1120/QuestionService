@@ -1,10 +1,6 @@
 package com.example.entity;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 
 @Entity
 @Table(name="Question_tB")
@@ -15,15 +11,14 @@ public class Question {
 	private Long id;
 	
 	private String question;
-	
-	
+
+
+	@Column(name = "quiz_id", nullable = false)
 	private Long quizId;
 	
 	public Question() {
 		
 	}
-
-	
 
 	public Question(Long id, String question, Long quizId) {
 		super();
@@ -55,8 +50,6 @@ public class Question {
 	public Long getQuizId() {
 		return quizId;
 	}
-
-
 
 	public void setQuizId(Long quizId) {
 		this.quizId = quizId;
